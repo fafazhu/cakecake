@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; }
+a:hover{
+    text-decoration: none;
+}
+button{
+    cursor: pointer;
+    background: #fff;
+}
+button:focus {
+    outline:none;
+}
+body{
+    font-family: 'PingFang SC','Heiti SC','微软雅黑',Helvetica,Arial;
+    font-size: 13px;
+    color: #684029;
+}
+.w-20{width: 20%;}
+.font_coffe14{color: #684029;font-size: 14px;}
+.font_coffe12{color: #684029;font-size: 12px;}
+.fl{float: left;}
+.fr{float: right;}
+a{color: #684029;font-size: 14px;}
+/* .header{
+    height: 80px;
+    width: 100%;
+    overflow: visible !important;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    box-shadow:0px 2px 2px 0px rgba(195, 195, 195, 0.5);
+} */
+/* .footer{width: 100%; height: 388px;} */
+.container{
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 0;
+    position: relative;
+    top:80px;
+}
+
+.my_button{
+    border: 1px solid #D5BFA7;
+    border-radius: 100px;
+    padding: 0 6px 0 8px;
+    color: #D5BFA7;
+    margin: 8px 3px;
+    font-size: 12px;
+}
+a.my_button:hover{color: #D5BFA7;}
+.rule_text{
+    margin: 50px;
+    margin-top: 78px;
+}
+img{width: 100%;}
+ul{list-style: none;}
+.bt_bg_grey{
+    width: 167px;
+    height: 30px;
+    line-height: 30px;
+    background: #F4F4F4;
+    color: #7A5844;
+    font-size: 13px;
+    display: inline-block;
+    text-align: center;
+}
+.bt_bg_grey:hover{
+    background: #F0F0F0;
+    color: #7A5844;
+}
+.bt_bg_brow{
+    width: 167px;
+    height: 30px;
+    line-height: 30px;
+    background: #684029;
+    color: #fff;
+    font-size: 13px;
+    display: inline-block;
+    text-align: center;
+}
+.bt_bg_brow:hover{
+    background: #442919;
+    color: #fff;
+}
