@@ -12,26 +12,30 @@
                 <li data-target="#slider" data-slide-to="0" class="active"></li>
                 <li data-target="#slider" data-slide-to="1" class=""></li>
                 <li data-target="#slider" data-slide-to="2"></li>
+                <li data-target="#slider" data-slide-to="3"></li>
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <a href=""><img src="https://static.21cake.com//upload/images/e0929109302ff46dc34c3e07e5dfb76a.jpg"></a>
+                    <a href=""><img src="../assets/img/index_carousel/0.jpg"></a>
                 </div>
                 <div class="carousel-item">
-                    <a href=""><img src="https://static.21cake.com//upload/images/b61b55a3918ade6727d763379ea456a6.jpg"></a>
+                    <a href=""><img src="../assets/img/index_carousel/1.jpg"></a>
                 </div>
                 <div class="carousel-item">
-                    <a href=""><img src="https://static.21cake.com//upload/images/699efe75340ffb15f83bd9867a5b24a2.jpg"></a>
+                    <a href=""><img src="../assets/img/index_carousel/2.jpg"></a>
+                </div>
+                <div class="carousel-item">
+                    <a href=""><img src="../assets/img/index_carousel/3.jpg"></a>
                 </div>
             </div>
         </div>
         <!-- 专题导航 -->
         <div class="home_menu">
-            <a href="#1"><img src="https://static.21cake.com/upload/images/634faecf907fede418ff700c1afc4a96.jpg" alt="新品" title="新品"></a>
-            <a href="#2"><img src="https://static.21cake.com/upload/images/9d85677ea56806bff908c431f7c764f7.jpg" alt="生日" title="生日"></a>
+            <a v-for="(item,i) of menuimg" :key="i" :href="'#'+(i+1)"><img :src="require(`../assets/home/homeMenu/${item.img}`)" :alt="item.name" :title="item.name"></a>
+            <!-- <a href="#2"><img src="https://static.21cake.com/upload/images/9d85677ea56806bff908c431f7c764f7.jpg" alt="生日" title="生日"></a>
             <a href="#3"><img src="https://static.21cake.com/upload/images/43a4c974312a2be97a1d0d6616c3ab23.jpg" alt="儿童" title="儿童"></a>
             <a href="#4"><img src="https://static.21cake.com/upload/images/9e3f7fdd852d1b35f318076e3575412c.jpg" alt="聚会" title="聚会"></a>
-            <a href="#4"><img src="https://static.21cake.com/upload/images/37752f6805d166b02e011c3b5c3b4972.png" alt="活动专区" title="活动专区"></a>
+            <a href="#4"><img src="https://static.21cake.com/upload/images/37752f6805d166b02e011c3b5c3b4972.png" alt="活动专区" title="活动专区"></a> -->
         </div>
         <!-- 新品专区 -->
         <div class="home_module" id="1">
@@ -280,6 +284,12 @@
 
 export default {
   name: 'home',
+  data() {
+      return {
+          menuimg:[{img:"1.jpg",name:"新品"},{img:"2.jpg",name:"生日"},{img:"3.jpg",name:"儿童"},{img:"4.jpg",name:"聚会"},{img:"5.png",name:"活动专区"},]
+          
+      }
+  },
 }
 </script>
 <style scoped>

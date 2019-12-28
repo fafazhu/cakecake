@@ -4,30 +4,45 @@ const pool=require('../pool.js')//../上一级  再上一级../../
 //console.log(pool);
 let router=express.Router();
 //1. 用户注册
+// 1.1验证手机号是否存在
+router.get("/check",(req,res)=>{
+	var phone=req.query.phone;
+	pool.query("SELECT uid FROM cake_user WHERE phone=?",[phone],(err,result)=>{
+		if(err) throw err;
+		if(result.length>0){
+			res.send({code:-1,msg:"已存在!"});
+		}else{
+			res.send({code:1,msg:"新手机号"});
+		}
+	});
+});
+// //3:http://127.0.0.1:4000/user/check?phone=13412341234
+
 //代码折叠：editsplus —— view —— code folding —— use code foolding
+// 1.2用户注册
 router.post('/reg',function(req,res){
 	//1.1获取post请求的数据
 	let obj=req.body;
-	//1.2对数据进行验证，是否为空
-	if(!obj.uname){
-		res.send({code:401,msg:'uname required'});
-		//阻止往后执行
-		return;
-	}
-	if(!obj.upwd){
-		res.send({code:402,msg:'upwd required'});
-		return;
-	}
-	if(!obj.email){
-		res.send({code:403,msg:'email required'});
-		return;
-	}
-	if(!obj.phone){
-		res.send({code:404,msg:'phone required'});
-		return;
-	}
+	// //1.2对数据进行验证，是否为空
+	// if(!obj.uname){
+	// 	res.send({code:401,msg:'uname required'});
+	// 	//阻止往后执行
+	// 	return;
+	// }
+	// if(!obj.upwd){
+	// 	res.send({code:402,msg:'upwd required'});
+	// 	return;
+	// }
+	// if(!obj.email){
+	// 	res.send({code:403,msg:'email required'});
+	// 	return;
+	// }
+	// if(!obj.phone){
+	// 	res.send({code:404,msg:'phone required'});
+	// 	return;
+	// }
 	//1.3将数据插入数据库
-	pool.query('INSERT INTO xz_user SET ?',[obj],function(err,result){
+	pool.query('INSERT INTO cake_user SET ?',[obj],function(err,result){
 		if(err) throw err;
 		console.log(result);
 	//如果插入成功
@@ -37,22 +52,25 @@ router.post('/reg',function(req,res){
 
 	});
 });
+// //3:http://127.0.0.1:4000/user/reg?phone=13212341234&upwd=123&date=123
+
+
 //用户登录
 router.post('/login',function(req,res){
 	//获取数据
 	let obj=req.body;
 	//验证数据是否为空
-	if(!obj.uname){
-		res.send({code:401,msg:'uname required'});
-		return;
-	}
-	if(!obj.upwd){
-		res.send({code:402,msg:'upwd required'});
-		return;
-	}
+	// if(!obj.uname){
+	// 	res.send({code:401,msg:'uname required'});
+	// 	return;
+	// }
+	// if(!obj.upwd){
+	// 	res.send({code:402,msg:'upwd required'});
+	// 	return;
+	// }
 	//执行SQL语句
 	//查询是否有用户名和密码同时匹配的数据，如果有登陆成功，否则登录失败
-	pool.query('SELECT*FROM xz_user WHERE uname=? AND upwd=?',[obj.uname,obj.upwd],function(err,result){
+	pool.query('SELECT*FROM cake_user WHERE phone=? AND upwd=?',[obj.phone,obj.upwd],function(err,result){
 		if(err) throw err;
 		console.log(result);
 		//结果是数组，如果数组元素个数>0，则登录成功，否则空数组登录失败
@@ -63,6 +81,9 @@ router.post('/login',function(req,res){
 		}
 	});
 });
+// //3:http://127.0.0.1:4000/user/login?phone=13212341234&upwd=123
+
+
 //检索用户
 router.get('/detail',function(req,res){
 	//获取数据

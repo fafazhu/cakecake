@@ -32,7 +32,18 @@ const routes = [
     path: '/cakeDetail',
     name: 'cakeDetail',
     component: () => import(/* webpackChunkName: "cakeDetail" */ '../views/cake_detail.vue')
-  }  
+  },
+  {
+    path: '/protectRule',
+    name: 'protectRule',
+    component: () => import(/* webpackChunkName: "protectRule" */ '../views/protect_rule.vue')
+  },
+  {
+    path: '/regRule',
+    name: 'regRule',
+    component: () => import(/* webpackChunkName: "regRule" */ '../views/reg_rule.vue')
+  }    
+
 
 
 ]

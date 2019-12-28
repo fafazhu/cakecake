@@ -3,16 +3,23 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from "axios"
+import QS from "qs"
 import myhead from "./components/head"
 import myfoot from "./components/foot.vue"
+import { DatePicker,MessageBox } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 
-axios.defaults.baseURL="http://localhost:5050"
+axios.defaults.baseURL="http://localhost:4000"
 Vue.prototype.axios=axios;
+Vue.prototype.QS=QS;
+Vue.prototype.MessageBox=MessageBox;
 
 Vue.config.productionTip = false
 Vue.component("myhead",myhead);
 Vue.component("myfoot",myfoot);
+
+Vue.use(DatePicker);
 
 new Vue({
   router,
