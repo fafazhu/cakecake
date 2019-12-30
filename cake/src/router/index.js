@@ -11,7 +11,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/activity',
+    path: '/activity/:hid',
     name: 'activity',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -51,7 +51,10 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })
 
 export default router

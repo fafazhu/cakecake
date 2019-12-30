@@ -38,23 +38,23 @@
             <a href="#4"><img src="https://static.21cake.com/upload/images/37752f6805d166b02e011c3b5c3b4972.png" alt="活动专区" title="活动专区"></a> -->
         </div>
         <!-- 新品专区 -->
-        <div class="home_module" id="1">
-            <h4>新品 <span>/ 专区</span></h4>
-            <div><a href="activity.html"><img src="https://static.21cake.com//upload/images/83db96358514ac6ecade4f142c2c5750.jpg" alt=""></a></div>
+        <div v-for="(type,i) of hometype" :key="i" class="home_module" :id="i+1">
+            <h4>{{type.hname}} <span>/ 专区</span></h4>
+            <div><router-link target="_blank" :to="'/activity/'+type.hid"><img :src="require(`../assets/home/type/${type.himg}`)" alt=""></router-link></div>
             <div class="home_list">
-                <div class="list_item">
-                    <a href=""><img src="https://static.21cake.com//upload/images/7d8ec9a9edcd7179d65a3bc86727a6c1.png" alt=""><h6>米道</h6></a>
-                    <a href=""><p class="text-truncate">天真、天然，是这款蛋糕唯一的出发点</p>
+                <div v-for="(item,index) of type.products.split(';')" :key="index" class="list_item">
+                    <a href=""><img :src="require(`../assets/product${item.split(',')[5]}`)" alt=""><h6>{{item.split(',')[1]}}</h6></a>
+                    <a href=""><p class="text-truncate">{{item.split(',')[2]}}</p>
                     </a>
-                    <button>儿童＞</button>
-                    <button>生日＞</button>
-                    <button>人气＞</button>
+                    <button v-for="(tag,k) of item.split(',')[3].split(' ')" :key="k">{{tag}}＞</button>
+                    <!-- <button>生日＞</button>
+                    <button>人气＞</button> -->
                     <div class="cart_info">
-                        <span>¥298.00/454g(1.0磅)</span>
+                        <span>{{item.split(',')[4]}}</span>
                         <button>加入购物车</button>
                     </div>
                 </div>
-                <div class="list_item">
+                <!-- <div class="list_item">
                         <a href=""><img src="https://static.21cake.com//upload/images/5f1937d08ee35760122edf8efe2f99e9.png" alt=""><h6>中秋坚果慕斯</h6></a>
                         <a href=""><p class="text-truncate">月光如果可以凝固，一定是芝士慕斯的味道</p>
                         </a>
@@ -89,11 +89,11 @@
                             <span>¥298.00/908g(2.0磅)</span>
                             <button>加入购物车</button>
                         </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- 生日专区 -->
-        <div class="home_module" id="2">
+        <!-- <div class="home_module" id="2">
                 <h4>生日 <span>/ 专区</span></h4>
                 <div><a href=""><img src="https://static.21cake.com//upload/images/84f0375298ea7fe876ae1447c2911400.jpg" alt=""></a></div>
                 <div class="home_list">
@@ -144,9 +144,9 @@
                             </div>
                     </div>
                 </div>
-        </div>
+        </div> -->
         <!-- 儿童专区 -->
-        <div class="home_module" id="3">
+        <!-- <div class="home_module" id="3">
             <h4>儿童 <span>/ 专区</span></h4>
             <div><a href=""><img src="https://static.21cake.com//upload/images/a85037c288546b3c691192dfad2bb16a.jpg" alt=""></a></div>
             <div class="home_list">
@@ -201,9 +201,9 @@
                         </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- 聚会专区 -->
-        <div class="home_module" id="4">
+        <!-- <div class="home_module" id="4">
             <h4>聚会 <span>/ 专区</span></h4>
             <div><a href=""><img src="https://static.21cake.com//upload/images/4f5fdcf4d2b26b0400372f90b8fac191.jpg" alt=""></a></div>
             <div class="home_list">
@@ -255,7 +255,7 @@
                         </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- 新客专享 -->
         <div class="home_module" id="5">
             <h4>活动门 <span>/ 是被吸引了吧</span></h4>
@@ -284,9 +284,16 @@
 
 export default {
   name: 'home',
+  created() {
+    this.axios.get("/home/info")
+    .then((res)=>{
+        this.hometype=res.data;
+    });
+  },
   data() {
       return {
-          menuimg:[{img:"1.jpg",name:"新品"},{img:"2.jpg",name:"生日"},{img:"3.jpg",name:"儿童"},{img:"4.jpg",name:"聚会"},{img:"5.png",name:"活动专区"},]
+          menuimg:[{img:"1.jpg",name:"新品"},{img:"2.jpg",name:"生日"},{img:"3.jpg",name:"儿童"},{img:"4.jpg",name:"聚会"},{img:"5.png",name:"活动专区"},],
+          hometype:[]
           
       }
   },

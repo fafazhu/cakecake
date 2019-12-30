@@ -13,7 +13,9 @@ const session = require("express-session");
 const cors = require("cors");
 const bodyParser=require('body-parser');
 // 引入路由
-var user = require("./routers/user")
+var user = require("./routers/user");
+var home = require("./routers/home");
+var product = require("./routers/product");
 //3:创建数据库连接池
 // var pool = mysql.createPool({
 //    host:"127.0.0.1",
@@ -50,6 +52,8 @@ server.use( bodyParser.urlencoded({
 
 /*使用路由器来管理路由*/
 server.use("/user",user);
+server.use("/home",home);
+server.use("/product",product);
 
 
 // //功能一;完成用户登录验证
