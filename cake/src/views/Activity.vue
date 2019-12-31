@@ -4,13 +4,14 @@
         </div>
         <h2 class="w-100 text-center">{{caketype.title}}</h2>
         <div class="gang"></div>
-        <ul class="list-unstyled d-flex justify-content-start w91 mx-auto flex-wrap">
+        <ul class="list-unstyled d-flex justify-content-start w91 mx-auto flex-wrap"  v-infinite-scroll="loadMore"
+      infinite-scroll-disabled="disabled">
             <li v-for="(cake,i) of cakelist" :key="i" class="pro_list">
-                <a href="">
+                <routerLink :to="'/cakeDetail/'+cake.pid">
                     <img :src="require('../assets/product'+cake.img)">
                     <h3>{{cake.title}}</h3>
                     <p class="m-0">{{cake.price}}</p>
-                </a>
+                </routerLink>
                 <button v-for="(tag,index) of cake.tag.split(' ')" :key="index" class="my_button">{{tag}}＞</button>
                 <!-- <button class="my_button">新品＞</button> -->
                 <!-- <button class="my_button">新品＞</button> -->
@@ -335,7 +336,9 @@
                     </a>
             </li> -->
         </ul>
-    </div>
+        <p v-if="loading" class="text-center"><i class="el-icon-loading"></i>加载中...</p>
+        <p v-if="noMore" class="text-center">--我也是有底线的--</p>
+        </div>
 </template>
 <script>
 export default {
@@ -345,19 +348,42 @@ export default {
         .then(res=>{
             this.caketype= res.data[0];
         });
-        this.axios.get("/product/list",{params:{ptype:this.$route.params.hid}})
-        .then(res=>{
-            this.cakelist= res.data;
-        })
+        this.loadMore();
+
     },
     data() {
         return {
             caketype:{title:"新品",img:"xp.jpg"},
-            cakelist:[
-                {pid:1,img:"/0/1_0.jpg",title:"米道",price:"¥298.00/454g(1.0磅)",tag:"儿童 生日 人气",typeimg:""},
-            ]
+            cakelist:[],
+            loading: false,
+            noMore:false,
+            pno:0
             
         }
+    },
+    computed: {
+      disabled () {
+        return this.loading || this.noMore
+      }
+    },
+    methods: {
+        loadMore(){
+            this.loading = true;
+            setTimeout(() => {
+                this.pno++;
+                this.axios.get("/product/list",{params:{ptype:this.$route.params.hid,pno:this.pno}})
+                .then(res=>{
+                    if(res.data.length==0){
+                        this.loading = false;
+                        this.noMore=true;
+                        return;
+                    }
+                this.cakelist=this.cakelist.concat( res.data);
+                })
+                this.loading = false
+            }, 2000)
+        }
+            
     },
 }
 </script>

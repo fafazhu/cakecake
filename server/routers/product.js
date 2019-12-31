@@ -14,21 +14,23 @@ router.get('/type',function(req,res){
 
 //商品列表
 router.get('/list',function(req,res){
+	var obj=req.query;
 	var ptype=req.query.ptype;
-	// if(!obj.pno || obj.pno<=0){
-	// 	obj.pno=1;
-	// }
-	// if(!obj.count){
-	// 	obj.count=2;
-	// }
-	// let start=(parseInt(obj.pno)-1)*parseInt(obj.count);
-	// obj.count=parseInt(obj.count);
-	pool.query('SELECT pid,img,title,price,tag,typeimg FROM cake_list WHERE ptype=?',[ptype],function(err,result){
+	if(!obj.pno || obj.pno<=0){
+		obj.pno=1;
+	}
+	if(!obj.count){
+		obj.count=4;
+	}
+	let start=(parseInt(obj.pno)-1)*parseInt(obj.count);
+	obj.count=parseInt(obj.count);
+	pool.query('SELECT pid,img,title,price,tag,typeimg FROM cake_list WHERE ptype=? LIMIT ?,?',[ptype,start,obj.count],function(err,result){
 		if(err) throw err;
 		res.send(result);
 	});
 });
 // http://127.0.0.1:4000/product/list?ptype=1
+// http://127.0.0.1:4000/product/list?ptype=1&pno=2&count=8
 
 
 module.exports=router;

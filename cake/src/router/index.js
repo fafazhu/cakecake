@@ -29,7 +29,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "reg" */ '../views/reg.vue')
   },
   {
-    path: '/cakeDetail',
+    path: '/cakeDetail/:pid',
     name: 'cakeDetail',
     component: () => import(/* webpackChunkName: "cakeDetail" */ '../views/cake_detail.vue')
   },

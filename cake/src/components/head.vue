@@ -47,13 +47,26 @@
                     <li><a href="">物流</a></li>
                 </ul>
             </div>
-            <span class="h80px"><a href="/login">登录</a>/ <a href="/reg">注册</a></span>
+            <span v-if="uname==''" class="h80px"><a href="/login">登录</a>/ <a href="/reg">注册</a></span>
+            <a v-else class="h80px">欢迎{{uname}} 
+            <el-button type="info" size="mini" plain @click="logout">退出登录</el-button>    
+            </a>
             <span class="h80px ml-4"><img src="../assets/img/shop_car.png" class=""></span>
         </div>
     </div>
 </template>
 <script>
+import {mapState,mapMutations} from "vuex"
 export default {
+    computed: {
+        ...mapState(["uname"])
+    },
+    methods: {
+        logout(){
+            this.setUname("")
+        },
+        ...mapMutations(["setUname"])
+    },
     
 }
 </script>

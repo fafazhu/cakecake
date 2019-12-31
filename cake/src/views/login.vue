@@ -30,6 +30,7 @@
     </div>
 </template>
 <script>
+import {mapMutations} from "vuex";
 export default {
     data() {
         return {
@@ -55,7 +56,10 @@ export default {
                         type:'success'
                     }).then(res=>{
                         this.$router.push("/");
-                    })
+                    });
+                    
+                    this.setUname(this.phone);
+                    
                 }else{
                     this.MessageBox.alert('用户名和密码错误！', '提示', {
                         confirmButtonText: '确定',
@@ -88,7 +92,8 @@ export default {
         checkUpwd(){
             var reg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9a-zA-Z]{8,20}$/.test(this.upwd);
             this.check(reg,this.upwd,"密码不能为空！","密码要8~20字符并同时包含英文和数字哦","密码格式正确！","upwd");
-        }
+        },
+        ...mapMutations(["setUname"])
     },
     
     watch: {
