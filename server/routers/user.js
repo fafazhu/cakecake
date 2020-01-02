@@ -72,9 +72,9 @@ router.post('/login',function(req,res){
 	//查询是否有用户名和密码同时匹配的数据，如果有登陆成功，否则登录失败
 	pool.query('SELECT*FROM cake_user WHERE phone=? AND upwd=?',[obj.phone,obj.upwd],function(err,result){
 		if(err) throw err;
-		console.log(result);
 		//结果是数组，如果数组元素个数>0，则登录成功，否则空数组登录失败
 		if(result.length>0){
+			req.session.uid=result[0].id;
 			res.send({code:200,msg:'login suc'});
 		}else{
 			res.send({code:301,msg:'login err'});

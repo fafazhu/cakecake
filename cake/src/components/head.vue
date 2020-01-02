@@ -63,7 +63,9 @@ export default {
     },
     methods: {
         logout(){
-            this.setUname("")
+            this.setUname("");
+            localStorage.clear();
+            sessionStorage.clear();
         },
         ...mapMutations(["setUname"])
     },

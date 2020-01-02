@@ -19,7 +19,7 @@
             <span class="msg"></span>
             <button :class="isdisabled?'bt_dis':'bt_reg'" @click="login" :disabled="isdisabled">登录</button>
             <div class="mt-3">
-                    <input id="check" type="checkbox" class="checkbox m-0">
+                    <input id="check" type="checkbox" class="checkbox m-0" v-model="remember">
                     <label for="check" class="m-0">记住账号</label>
                     <span class="span1">
                         <a href="">忘记密码</a>
@@ -40,7 +40,8 @@ export default {
             checkel:{
                 phone:false,
                 upwd:false,
-            }
+            },
+            remember:false
         }
     },
     methods: {
@@ -55,11 +56,16 @@ export default {
                         confirmButtonText: '确定',
                         type:'success'
                     }).then(res=>{
+                        if(this.remember){
+                            localStorage.setItem("uname",this.phone);
+                        }else{
+                            sessionStorage.setItem("uname",this.phone)
+                        }
+                        var uname=localStorage.getItem("uname") || sessionStorage.getItem("uname");
+                        this.setUname(uname||"");
                         this.$router.push("/");
                     });
-                    
-                    this.setUname(this.phone);
-                    
+                                        
                 }else{
                     this.MessageBox.alert('用户名和密码错误！', '提示', {
                         confirmButtonText: '确定',
