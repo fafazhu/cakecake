@@ -42,7 +42,12 @@ const routes = [
     path: '/regRule',
     name: 'regRule',
     component: () => import(/* webpackChunkName: "regRule" */ '../views/reg_rule.vue')
-  }    
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: () => import(/* webpackChunkName: "cart" */ '../views/Cart.vue')
+  }      
 
 
 

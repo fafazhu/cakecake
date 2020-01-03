@@ -7,11 +7,11 @@
             </ul>
             <div class="tab-content">
                 <div id="tab1" class="tab-pane active">
-                    <input v-model="phone" type="text" placeholder="请输入您的手机号" @blur="checkPhone"><br>
+                    <input v-model="phone" type="text" placeholder="请输入您的手机号" @blur="checkPhone" ><br>
                     <input v-model="upwd" type="password" placeholder="输入密码" @blur="checkUpwd"><br>
                 </div>
                 <div id="tab2" class="tab-pane">
-                        <input id="phone" type="text" placeholder="请输入您的手机号" class=""><br>
+                        <input  v-model="phone" type="text" placeholder="请输入您的手机号" class="" ><br>
                         <input type="text" placeholder="短信验证码" class="sm_input"><button class="btn_yzm">获取验证码</button><br>
                         <span></span>
                 </div>
@@ -20,7 +20,7 @@
             <button :class="isdisabled?'bt_dis':'bt_reg'" @click="login" :disabled="isdisabled">登录</button>
             <div class="mt-3">
                     <input id="check" type="checkbox" class="checkbox m-0" v-model="remember">
-                    <label for="check" class="m-0">记住账号</label>
+                    <label for="check" class="m-0">自动登录</label>
                     <span class="span1">
                         <a href="">忘记密码</a>
                         <a href="reg">去注册</a>
@@ -30,8 +30,11 @@
     </div>
 </template>
 <script>
-import {mapMutations} from "vuex";
+import {mapMutations,mapState} from "vuex";
 export default {
+    created() {
+        this.phone=this.Iphone;
+    },
     data() {
         return {
             phone:"",
@@ -43,6 +46,9 @@ export default {
             },
             remember:false
         }
+    },
+    computed: {
+        ...mapState(["Iphone"])
     },
     methods: {
         login(){

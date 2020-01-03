@@ -98,3 +98,17 @@ INSERT INTO cake_type VALUES(null,"xp.jpg","新品");
 INSERT INTO cake_type VALUES(null,"sr.jpg","生日");
 INSERT INTO cake_type VALUES(null,"et.jpg","儿童");
 INSERT INTO cake_type VALUES(null,"jh.jpg","聚会");
+#功能五 创建商品详情表
+CREATE TABLE cake_details(
+  pid INT PRIMARY KEY AUTO_INCREMENT,
+  img VARCHAR(50),
+  title VARCHAR(50),
+  price INT,
+  tuan VARCHAR(50),
+  size VARCHAR(50),
+  sid INT
+);
+INSERT INTO cake_details VALUES(null,"0/3.jpg","Rice Cake [米道]",298,"可可撒粉","454g(1.0磅)",11);
+INSERT INTO cake_details VALUES(null,"0/3.jpg","Rice Cake [米道]",398,"可可撒粉","908g(2.0磅)",12);
+INSERT INTO cake_details VALUES(null,"0/21.jpg","Rice Cake [米道]（芒果撒粉）",298,"芒果撒粉","454g(1.0磅)",21);
+INSERT INTO cake_details VALUES(null,"0/21.jpg","Rice Cake [米道]（芒果撒粉）",398,"芒果撒粉","908g(2.0磅)",22);

@@ -43,7 +43,7 @@
             <div><router-link target="_blank" :to="'/activity/'+type.hid"><img :src="require(`../assets/home/type/${type.himg}`)" alt=""></router-link></div>
             <div class="home_list">
                 <div v-for="(item,index) of type.products.split(';')" :key="index" class="list_item">
-                    <a href=""><img :src="require(`../assets/product${item.split(',')[5]}`)" alt=""><h6>{{item.split(',')[1]}}</h6></a>
+                    <routerLink target="_blank" :to="'/cakeDetail/'+item.split(',')[0]"><img :src="require(`../assets/product${item.split(',')[5]}`)" alt=""><h6>{{item.split(',')[1]}}</h6></routerLink>
                     <a href=""><p class="text-truncate">{{item.split(',')[2]}}</p>
                     </a>
                     <button v-for="(tag,k) of item.split(',')[3].split(' ')" :key="k">{{tag}}＞</button>

@@ -28,6 +28,7 @@
     </div>
 </template>
 <script>
+import {mapMutations, mapActions} from "vuex";
 export default {
     data() {
         return {
@@ -55,6 +56,9 @@ export default {
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
+                        // sessionStorage.setItem("Iphone",this.phone)
+                        // this.setPhone(sessionStorage.getItem("Iphone"));
+                        this.setPhone(this.phone);
                         this.$router.push("/login");
                     }).catch(() => {
                     });
@@ -70,7 +74,10 @@ export default {
                                 confirmButtonText: '确定',
                                 type:'success'
                             }).then(res=>{
-                                this.$router.push("/login");
+                                sessionStorage.setItem("uname",this.phone);
+                                var uname=sessionStorage.getItem("uname");
+                                this.setUname(uname);
+                                this.$router.push("/");
                             })
                         }
                     })
@@ -112,7 +119,8 @@ export default {
         },
         isAgree(e){
           this.checkel.checked=e.target.checked?true:false;
-        }
+        },
+        ...mapMutations(["setPhone","setUname"])
     },
     
     watch: {

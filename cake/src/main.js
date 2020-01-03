@@ -6,7 +6,7 @@ import axios from "axios"
 import QS from "qs"
 import myhead from "./components/head"
 import myfoot from "./components/foot.vue"
-import { DatePicker,MessageBox,Button } from 'element-ui';
+import { DatePicker,MessageBox,Button,InputNumber,Badge } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import infiniteScroll from 'vue-infinite-scroll'
 
@@ -24,6 +24,8 @@ Vue.component("myfoot",myfoot);
 Vue.use(DatePicker);
 Vue.use(infiniteScroll);
 Vue.use(Button);
+Vue.use(InputNumber);
+Vue.use(Badge);
 
 new Vue({
   router,

@@ -6,11 +6,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    uname:""
+    uname:localStorage.getItem("uname") || sessionStorage.getItem("uname") || "",
+    Iphone:""
   },
   mutations: {
     // 专门负责修改state中变量
-    setUname(state,uname){state.uname=uname}
+    setUname(state,uname){state.uname=uname},
+    setPhone(state,phone){state.Iphone=phone}
   },
   actions: {
     // 专门负责发送异步ajax请求

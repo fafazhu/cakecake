@@ -51,7 +51,10 @@
             <a v-else class="h80px">欢迎{{uname}} 
             <el-button type="info" size="mini" plain @click="logout">退出登录</el-button>    
             </a>
-            <span class="h80px ml-4"><img src="../assets/img/shop_car.png" class=""></span>
+             
+                <a href="/cart" class="h80px ml-4"><img src="../assets/img/shop_car.png" class=""></a>
+            <el-badge :value="totalcount" class="item" type="warning" v-show="totalcount>0">
+            </el-badge>
         </div>
     </div>
 </template>
@@ -68,6 +71,11 @@ export default {
             sessionStorage.clear();
         },
         ...mapMutations(["setUname"])
+    },
+    data() {
+        return {
+            totalcount:2
+        }
     },
     
 }
@@ -113,5 +121,6 @@ body{background: transparent;}
     color: inherit;
     background: inherit;
 }
+.item{position: absolute;right: 40px; top: 25px;}
 
 </style>

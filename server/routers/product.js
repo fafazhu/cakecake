@@ -32,5 +32,26 @@ router.get('/list',function(req,res){
 // http://127.0.0.1:4000/product/list?ptype=1
 // http://127.0.0.1:4000/product/list?ptype=1&pno=2&count=8
 
+//商品详情
+router.get('/details',(req,res)=>{
+	var pid=req.query.pid;
+	pool.query('SELECT img,title,price,tuan,size,sid FROM cake_details WHERE pid=?',[pid],(err,result)=>{
+		if(err) throw err;
+		res.send(result);
+	})
+})
+// http://127.0.0.1:4000/product/details?pid=1
+
+// 获取pid
+router.get('/getpid',(req,res)=>{
+	var tuan=req.query.tuan;
+	var size=req.query.size;
+	pool.query('SELECT pid FROM cake_details WHERE tuan=? AND size=?',[tuan,size],(err,result)=>{
+		if(err) throw err;
+		res.send(result);
+	})
+})
+// http://127.0.0.1:4000/product/getpid?tuan=芒果撒粉&size=908g(2.0磅)
+
 
 module.exports=router;
