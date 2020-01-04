@@ -11,34 +11,36 @@
                 <li>单价</li>
                 <li>数量</li>
                 <li>金额</li>
+                <li><a href="javascript:;" @click="clearcart"><i class="el-icon-delete" ></i>清空购物车</a></li>
             </ul>
             <div class="cartlist">
-                <div class="listitem">
+                <div v-for="(item,i) of cartlist" :key="i" class="listitem">
                     <div class="cake">
-                        <input type="checkbox">
+                        <input type="checkbox" v-model="item.select" @change="changeItem">
                         <div>
-                        <img :src="require('../assets/product'+cart[0].img)" alt="">
+                        <img :src="require('../assets/product'+item.img)" alt="">
                         </div>
                         <div class="caketext">
-                            <a href="">{{cart[0].title}}</a>
+                            <a href="">{{item.title}}</a>
                             <p>
                             <span>规格：</span>
-                            <span>{{cart[0].size}}</span>
+                            <span>{{item.size}}</span>
                             </p>
                         </div>
                     </div>
-                    <div class="price1">¥{{cart[0].price}}.00</div>
-                    <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" size="small"></el-input-number>
-                    <div class="price2">¥{{cart[0].price*num}}.00</div>
-                    <i class="el-icon-close"></i>
+                    <div class="price1">¥{{item.price}}.00</div>
+                    <el-input-number v-model="item.count" @change="changecart(item.count,item.pid)" :min="1" :max="10" size="small"></el-input-number>
+                    <div class="price2">¥{{item.price*item.count}}.00</div>
+                    <i class="el-icon-close" @click="delcart(item.pid)"></i>
                 </div>
                 <div class="jiesuan">
                     <div>
-                        <input type="checkbox"> 全选
+                        <input type="checkbox" @change="selectAll" v-model="all"> 全选
                     </div>
-                    <span>总计：<span class="price2">price</span></span>
+                    <span>总计：<span class="price2">¥{{sum}}.00</span></span>
                 </div>
                 <div class="buttonright">
+                    <a href="/" class="bt_bg_brow bg-info">继续购物</a>
                     <a href="" class="bt_bg_brow">去结算</a>
                 </div>
             </div>
@@ -46,18 +48,46 @@
     </div>
 </template>
 <script>
+import {mapMutations,mapState} from "vuex";
 export default {
     data() {
         return {
-            totalcount:1,
-            cart:[{title:"米道",img:"/0/0.png",size:"454g(1.0磅)",price:"298"}],
-            num: 1
+            all:false,
+            isdisabled:true
         }
     },
     methods: {
-        handleChange(value) {
-        console.log(value);
-      }
+        selectAll(){
+            for(var item of this.cartlist){
+                item.select=this.all;
+            }
+        },
+        changeItem(){
+            var s=0;
+            for(var item of this.cartlist){
+                if(item.select){
+                    s+=1;
+                }
+            }
+            if(s==this.cartlist.length){
+                this.all=true;
+            }else{
+                this.all=false;
+            }
+        },
+      ...mapMutations(["addcart","changecart","delcart","clearcart"])
+    },
+    computed: {
+        sum:function(){
+            let total=0;
+            for(var item of this.cartlist){
+                if(item.select){
+                    total+=item.price*item.count;
+                }
+            }
+            return total;
+        },
+        ...mapState(["cartlist","totalcount"])
     },
 }
 </script>
@@ -72,21 +102,27 @@ export default {
     margin: 0 auto;
     margin-top: 115px;
     display: flex;
+    justify-content: space-around;
     width: 1202px;height: 44px;
     background: #FAFAFA;
     border: 1px solid #E1E1E1;
 }
 .title>li{
     line-height: 44px;
-    width: 300px;
+    width: 130px;
     text-align: center;
 }
 .title>li:first-child{
     margin-left: 60px;
+    width: 290px;
 }
-.title>li:last-child{
+.title a:hover{color: #D5BFA7;}
+/* .title>li:nth-child(3){
+    width: 80px;
+} */
+/* .title>li:last-child{
     text-align: start;
-}
+} */
 
 .cartlist{
     width: 1202px;
@@ -102,13 +138,18 @@ export default {
     position: relative;
 }
 .listitem img{width: 82px;margin-top: -15px;}
-.cake{display: flex;width: 280px;}
-.price1{width: 150px;}
-.price2{color: #f00;}
+.cake{
+    display: flex;
+    width: 300px;
+}
+.price1,.price2{width: 130px;text-align: center}
+.price2{color: #f00;text-align: start;padding-left: 10px}
 .jiesuan{
     display: flex;
     justify-content: space-between;
-    padding: 10px 80px;
+    padding: 10px 67px;
 }
-.buttonright{text-align: end;margin: 0 20px 10px 20px;}
+.buttonright{display: flex;
+    justify-content: space-between;margin: 0 20px 10px 20px;}
+.el-icon-close{width: 50px;}
 </style>

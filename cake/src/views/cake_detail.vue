@@ -64,7 +64,7 @@
                     </a>
                 </div> -->
                 <a href="javascript:;" class="bt_bg_grey mr-2" @click="gobuy">立即购买</a>
-                <a href="javascript:;" class="bt_bg_brow ml-2">加入购物车</a>
+                <a href="javascript:;" class="bt_bg_brow ml-2" @click="deaddcart">加入购物车</a>
             </div>
         </div>
         <div>
@@ -81,7 +81,8 @@
     </div>
 </template>
 <script>
-import {getDetailsByPid,getPidBySpec} from "../assets/apis/details"
+import {getDetailsByPid,getPidBySpec} from "../assets/apis/details";
+import {mapMutations} from "vuex";
 export default {
     created() {
         this.load();
@@ -146,12 +147,23 @@ export default {
                         type:'warning'
                     }).then(res=>{
                         this.$router.push("/login");
-                    });
+                });
             }
         },
         gobuy(){
             this.islogin();
-        }
+        },
+        deaddcart(){
+            let obj={pid:this.$route.params.pid,title:this.product.title,img:this.image,price:this.product.price,size:this.product.size,count:1};
+            this.addcart(obj);
+            this.MessageBox.alert('加入购物车成功！', '提示', {
+                confirmButtonText: '确定',
+                type:'success'
+            }).then(res=>{
+            });
+            
+        },
+        ...mapMutations(["addcart"])
     },
     
 }

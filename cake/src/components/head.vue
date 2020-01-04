@@ -62,7 +62,8 @@
 import {mapState,mapMutations} from "vuex"
 export default {
     computed: {
-        ...mapState(["uname"])
+        ...mapState(["uname"]),
+        ...mapState(["totalcount"])
     },
     methods: {
         logout(){
@@ -74,7 +75,6 @@ export default {
     },
     data() {
         return {
-            totalcount:2
         }
     },
     
